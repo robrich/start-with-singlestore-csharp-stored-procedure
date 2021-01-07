@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
 
-namespace MemSQLExample
+namespace SingleStoreExample
 {
     public class Message
     {
@@ -15,11 +15,11 @@ namespace MemSQLExample
     public static class Program
     {
 
-        // TODO: read from config
+        // TODO: adjust these connection details to match your SingleStore deployment:
         public const string HOST = "localhost";
         public const int PORT = 3306;
         public const string USER = "root";
-        public const string PASSWORD = "";
+        public const string PASSWORD = "password_here";
         public const string DATABASE = "acme";
 
         public static void Main()
@@ -28,7 +28,7 @@ namespace MemSQLExample
             try
             {
                 conn.ConnectionString = $"Server={HOST};Port={PORT};Uid={USER};Pwd={PASSWORD};Database={DATABASE};checkparameters=false;";
-                // need `checkparameters=false` for stored procedures because there's no `mysql` database, it's named `information_schema` in MemSQL
+                // need `checkparameters=false` for stored procedures because there's no `mysql` database, it's named `information_schema` in SingleStore
                 conn.Open();
 
                 long id = Create(conn, "Inserted row");
@@ -56,11 +56,14 @@ namespace MemSQLExample
                 }
 
                 Delete(conn, id);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}\n{ex.StackTrace}");
                 throw;
-            } finally {
+            }
+            finally
+            {
                 conn.Close();
             }
 
@@ -77,7 +80,7 @@ namespace MemSQLExample
             ulong id = (ulong)cmd.ExecuteScalar();
             cmd.Parameters.Clear(); // reusing this command? clean up the parameters.
 
-            return Convert.ToInt64(id);
+            return (long)id;
         }
 
         private static Message ReadOne(IDbConnection conn, long id)

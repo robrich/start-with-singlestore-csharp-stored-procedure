@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "memsql-stored-procedures", "memsql-stored-procedures.csproj", "{A727678B-B0E7-4F03-B217-1CF96D4A518F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SingleStoreStoredProcedures", "SingleStoreStoredProcedures.csproj", "{A727678B-B0E7-4F03-B217-1CF96D4A518F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
